@@ -61,6 +61,6 @@ conn |> PlugBest.best_language_or_first(["es", "ru"])
 License
 -------
 
-`PlugCanonicalHost` is © 2016 [Rémi Prévost](http://exomel.com) and may be
+`PlugBest` is © 2016 [Rémi Prévost](http://exomel.com) and may be
 freely distributed under the [MIT license](https://github.com/remiprev/plug_best/blob/master/LICENSE.md). See the
 `LICENSE.md` file for more information.
