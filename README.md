@@ -56,7 +56,7 @@ conn |> PlugBest.best_language(["es", "ru"])
 # => nil
 
 conn |> PlugBest.best_language_or_first(["es", "ru"])
-# => "ru"
+# => "es"
 ```
 
 License
