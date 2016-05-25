@@ -8,19 +8,18 @@ PlugBest
 Installation
 ------------
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+Add `plug_best` to the `deps` function in your project's `mix.exs` file:
 
-  1. Add plug_best to your list of dependencies in `mix.exs`:
+```elixir
+defp deps do
+  [
+    …,
+    {:plug_best, "~> 0.0.1"}
+  ]
+end
+```
 
-        def deps do
-          [{:plug_best, "~> 0.0.1"}]
-        end
-
-  2. Ensure plug_best is started before your application:
-
-        def application do
-          [applications: [:plug_best]]
-        end
+Then run `mix do deps.get, deps.compile` inside your project's directory.
 
 Usage
 -----
