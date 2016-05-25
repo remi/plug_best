@@ -1,4 +1,4 @@
-:warning: This package is not ready yet! :warning:
+:warning: This package is not ready yet! Readme Driven Development! :boom:
 
 PlugBest
 ==========
