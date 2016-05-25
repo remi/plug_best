@@ -12,7 +12,7 @@ defmodule PlugBest.Mixfile do
      start_permanent: Mix.env == :prod,
      source_url: "https://github.com/remiprev/plug_best",
      homepage_url: "https://github.com/remiprev/plug_best",
-     description: "A Plug to parse HTTP headers and return the best match based on a list of values.",
+     description: "A Plug to parse HTTP “Accept-*” headers and return the best match based on a list of values.",
      docs: [extras: ["README.md"], main: "readme", source_ref: "v#{@version}", source_url: "https://github.com/remiprev/plug_best"]]
   end
 

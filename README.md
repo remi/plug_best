@@ -3,7 +3,7 @@
 PlugBest
 ==========
 
-`PlugBest` parses HTTP headers and returns the best match based on a list of values.
+`PlugBest` parses HTTP “Accept-*“ headers and returns the best match based on a list of values.
 
 Installation
 ------------
