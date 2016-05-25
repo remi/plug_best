@@ -38,8 +38,8 @@ And plans to add support for the following soon:
 To find out which language is the best one to use among a list of supported languages:
 
 ```elixir
-conn.headers["accept-language"]
-# => "fr-CA,fr;q=0.8,en;q=0.6,en-US;q=0.4"
+conn |> Plug.Conn.get_req_header("accept-language")
+# => ["fr-CA,fr;q=0.8,en;q=0.6,en-US;q=0.4"]
 
 conn |> PlugBest.best_language(["en", "fr"])
 # => "fr"
@@ -49,8 +49,8 @@ If no values in the header is support, `PlugBest` will return the first `nil`. H
 you can use the `_or_first` suffix to make it return the first value in those cases.
 
 ```elixir
-conn.headers["accept-language"]
-# => "fr-CA,fr;q=0.8,en;q=0.6,en-US;q=0.4"
+conn |> Plug.Conn.get_req_header(conn, "accept-language")
+# => ["fr-CA,fr;q=0.8,en;q=0.6,en-US;q=0.4"]
 
 conn |> PlugBest.best_language(["es", "ru"])
 # => nil
