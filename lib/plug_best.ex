@@ -1,0 +1,2 @@
+defmodule PlugBest do
+end
