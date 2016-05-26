@@ -1,5 +1,8 @@
 # PlugBest
 
+[![Travis](https://img.shields.io/travis/remiprev/plug_best.svg?style=flat-square)](https://travis-ci.org/remiprev/plug_best)
+[![Hex.pm](https://img.shields.io/hexpm/v/plug_best.svg?style=flat-square)](https://hex.pm/packages/plug_best)
+
 `PlugBest` parses HTTP “Accept-*“ headers and returns the best match based on a list of values.
 
 ## Installation
