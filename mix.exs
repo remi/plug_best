@@ -1,7 +1,7 @@
 defmodule PlugBest.Mixfile do
   use Mix.Project
 
-  @version "0.0.1"
+  @version "0.1"
 
   def project do
     [app: :plug_best,

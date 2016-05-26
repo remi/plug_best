@@ -1,5 +1,3 @@
-:warning: This package is not ready yet! Readme Driven Development! :boom:
-
 PlugBest
 ==========
 
@@ -14,7 +12,7 @@ Add `plug_best` to the `deps` function in your project's `mix.exs` file:
 defp deps do
   [
     …,
-    {:plug_best, "~> 0.0.1"}
+    {:plug_best, "~> 0.1"}
   ]
 end
 ```
