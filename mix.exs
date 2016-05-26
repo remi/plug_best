@@ -1,7 +1,7 @@
 defmodule PlugBest.Mixfile do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
 
   def project do
     [app: :plug_best,
@@ -33,6 +33,9 @@ defmodule PlugBest.Mixfile do
     [name: :plug_best,
      maintainers: ["Rémi Prévost"],
      licenses: ["MIT"],
-     links: %{"GitHub" => "https://github.com/remprev/plug_best"}]
+     links: %{
+       "GitHub" => "https://github.com/remiprev/plug_best",
+        "Docs" => "http://hexdocs.pm/plug_best"
+     }]
   end
 end
