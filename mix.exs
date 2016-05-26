@@ -8,6 +8,7 @@ defmodule PlugBest.Mixfile do
      version: @version,
      elixir: "~> 1.2",
      deps: deps,
+     package: package,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      source_url: "https://github.com/remiprev/plug_best",
@@ -26,5 +27,12 @@ defmodule PlugBest.Mixfile do
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.11", only: :dev}
     ]
+  end
+
+  defp package do
+    [name: :plug_best,
+     maintainers: ["Rémi Prévost"],
+     licenses: ["MIT"],
+     links: %{"GitHub" => "https://github.com/remprev/plug_best"}]
   end
 end
