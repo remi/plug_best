@@ -34,17 +34,15 @@ defmodule PlugBest do
 
   defp parse_header_value_item(item) do
     [language, score] = case String.split(item, ";") do
-       [language] -> [language, "q=1.0"]
-       [language, score] -> [language, score]
+       [language] -> [language, 1.0]
+       [language, "q=" <> score] -> [language, String.to_float(score)]
     end
 
     # Extract base language by removing its suffix
     base_language = language |> String.replace(~r/-.+$/, "")
 
-    {language, base_language, parsed_score(score)}
+    {language, base_language, score}
   end
-
-  defp parsed_score("q=" <> score), do: String.to_float(score)
 
   defp sort_header_value_items({_, _, first_score}, {_, _, second_score}) do
     first_score > second_score
