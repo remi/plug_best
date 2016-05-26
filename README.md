@@ -41,7 +41,7 @@ conn |> Plug.Conn.get_req_header("accept-language")
 # => ["fr-CA,fr;q=0.8,en;q=0.6,en-US;q=0.4"]
 
 conn |> PlugBest.best_language(["en", "fr"])
-# => "fr"
+# => {"fr-CA", "fr", 1.0}
 ```
 
 If no values in the header is support, `PlugBest` will return the first `nil`. However,
@@ -55,7 +55,7 @@ conn |> PlugBest.best_language(["es", "ru"])
 # => nil
 
 conn |> PlugBest.best_language_or_first(["es", "ru"])
-# => "es"
+# => {"es", "es", 0.0}
 ```
 
 License
