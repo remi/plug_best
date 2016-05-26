@@ -1,10 +1,8 @@
-PlugBest
-==========
+# PlugBest
 
 `PlugBest` parses HTTP “Accept-*“ headers and returns the best match based on a list of values.
 
-Installation
-------------
+## Installation
 
 Add `plug_best` to the `deps` function in your project's `mix.exs` file:
 
@@ -19,8 +17,7 @@ end
 
 Then run `mix do deps.get, deps.compile` inside your project's directory.
 
-Usage
------
+## Usage
 
 `PlugBest` currently provides a single basic method:
 
@@ -56,8 +53,7 @@ conn |> PlugBest.best_language_or_first(["es", "ru"])
 # => {"es", "es", 0.0}
 ```
 
-License
--------
+## License
 
 `PlugBest` is © 2016 [Rémi Prévost](http://exomel.com) and may be
 freely distributed under the [MIT license](https://github.com/remiprev/plug_best/blob/master/LICENSE.md). See the
