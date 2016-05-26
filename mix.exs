@@ -33,9 +33,6 @@ defmodule PlugBest.Mixfile do
     [name: :plug_best,
      maintainers: ["Rémi Prévost"],
      licenses: ["MIT"],
-     links: %{
-       "GitHub" => "https://github.com/remiprev/plug_best",
-        "Docs" => "http://hexdocs.pm/plug_best"
-     }]
+     links: %{"GitHub" => "https://github.com/remiprev/plug_best"}]
   end
 end
