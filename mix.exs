@@ -25,7 +25,8 @@ defmodule PlugBest.Mixfile do
     [
       {:plug, " ~> 1.0"},
       {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.11", only: :dev}
+      {:ex_doc, "~> 0.11", only: :dev},
+      {:credo, "~> 0.3", only: [:dev, :test]}
     ]
   end
 

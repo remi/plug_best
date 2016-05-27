@@ -21,11 +21,13 @@ defmodule PlugBest do
   ```
   """
 
+  alias Plug.Conn
+
   @doc """
   Returns the best supported langage based on the connection `Accept-Language`
   HTTP header. Returns `nil` if none is found.
   """
-  def best_language(conn = %Plug.Conn{}, supported_languages) do
+  def best_language(conn = %Conn{}, supported_languages) do
     # Fetch the raw header content
     conn |> fetch_header_value("accept-language")
 
@@ -47,7 +49,7 @@ defmodule PlugBest do
   Returns the best supported langage based on the connection `Accept-Language`
   HTTP header. Returns the first supported language if none is found.
   """
-  def best_language_or_first(conn = %Plug.Conn{}, supported_languages) do
+  def best_language_or_first(conn = %Conn{}, supported_languages) do
     conn |> best_language(supported_languages) || default_supported_language(supported_languages)
   end
 
@@ -58,7 +60,7 @@ defmodule PlugBest do
 
   defp fetch_header_value(conn, header_name) do
     conn
-    |> Plug.Conn.get_req_header(header_name)
+    |> Conn.get_req_header(header_name)
     |> List.first
   end
 
