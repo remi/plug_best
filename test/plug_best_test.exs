@@ -1,4 +1,8 @@
 defmodule PlugBestTest do
+  @moduledoc """
+  Tests the PlugBest module.
+  """
+
   use ExUnit.Case, async: true
   use Plug.Test
   doctest PlugBest
