@@ -9,6 +9,7 @@ defmodule PlugBest.Mixfile do
      elixir: "~> 1.2",
      deps: deps,
      package: package,
+     dialyzer: dialyzer,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      source_url: "https://github.com/remiprev/plug_best",
@@ -21,12 +22,17 @@ defmodule PlugBest.Mixfile do
     [applications: []]
   end
 
+  def dialyzer do
+    [plt_add_apps: [:plug]]
+  end
+
   defp deps do
     [
       {:plug, " ~> 1.0"},
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.11", only: :dev},
-      {:credo, "~> 0.3", only: [:dev, :test]}
+      {:credo, "~> 0.3", only: [:dev, :test]},
+      {:dialyxir, "~> 0.3.3", only: [:dev, :test]}
     ]
   end
 

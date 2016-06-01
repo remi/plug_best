@@ -21,12 +21,17 @@ defmodule PlugBest do
   ```
   """
 
+  # Types
+  @type language :: {String.t, String.t, float}
+
+  # Aliases
   alias Plug.Conn
 
   @doc """
   Returns the best supported langage based on the connection `Accept-Language`
   HTTP header. Returns `nil` if none is found.
   """
+  @spec best_language(%Conn{}, [String.t, ...]) :: language | nil
   def best_language(conn = %Conn{}, supported_languages) do
     # Fetch the raw header content
     conn |> fetch_header_value("accept-language")
@@ -49,21 +54,25 @@ defmodule PlugBest do
   Returns the best supported langage based on the connection `Accept-Language`
   HTTP header. Returns the first supported language if none is found.
   """
+  @spec best_language_or_first(%Conn{}, [String.t, ...]) :: language
   def best_language_or_first(conn = %Conn{}, supported_languages) do
     conn |> best_language(supported_languages) || default_supported_language(supported_languages)
   end
 
+  @spec default_supported_language([String.t, ...]) :: language
   defp default_supported_language(supported_languages) do
     [default_language | _] = supported_languages
     {default_language, default_language, 0.0}
   end
 
+  @spec fetch_header_value(%Conn{}, String.t) :: String.t
   defp fetch_header_value(conn, header_name) do
     conn
     |> Conn.get_req_header(header_name)
     |> List.first
   end
 
+  @spec parse_header_value_item(String.t) :: language
   defp parse_header_value_item(item) do
     [language, score] = case String.split(item, ";") do
        [language] -> [language, 1.0]
@@ -76,10 +85,12 @@ defmodule PlugBest do
     {language, base_language, score}
   end
 
+  @spec sort_header_value_items(language, language) :: boolean
   defp sort_header_value_items({_, _, first_score}, {_, _, second_score}) do
     first_score > second_score
   end
 
+  @spec filter_header_value_item(language, [String.t, ...]) :: boolean
   defp filter_header_value_item({_, base_language, _}, supported_languages) do
     Enum.member?(supported_languages, base_language)
   end
