@@ -46,7 +46,7 @@ If no values in the header is support, `PlugBest` will return the first `nil`. H
 you can use the `_or_first` suffix to make it return the first value in those cases.
 
 ```elixir
-conn |> Plug.Conn.get_req_header(conn, "accept-language")
+conn |> Plug.Conn.get_req_header("accept-language")
 # => ["fr-CA,fr;q=0.8,en;q=0.6,en-US;q=0.4"]
 
 conn |> PlugBest.best_language(["es", "ru"])
