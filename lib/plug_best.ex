@@ -67,9 +67,11 @@ defmodule PlugBest do
 
   @spec fetch_header_value(%Conn{}, String.t) :: String.t
   defp fetch_header_value(conn, header_name) do
-    conn
+    header_value = conn
     |> Conn.get_req_header(header_name)
     |> List.first
+
+    header_value || ""
   end
 
   @spec parse_header_value_item(String.t) :: language
