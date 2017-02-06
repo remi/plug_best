@@ -17,6 +17,13 @@ defmodule PlugBestTest do
     assert best_language == {"en", "en", 0.6}
   end
 
+  test "handles malformed header value" do
+    conn = %Plug.Conn{req_headers: [{"accept-language", "fr-CA;q=1,fr;q=0.8,en;q=0.6,en-US;q=0.4"}]}
+
+    best_language = conn |> PlugBest.best_language(["fr", "en"])
+    assert best_language == {"fr-CA", "fr", 1.0}
+  end
+
   test "returns nil when there is no accept-language header" do
     conn = %Plug.Conn{req_headers: []}
 

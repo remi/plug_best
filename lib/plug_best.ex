@@ -78,7 +78,7 @@ defmodule PlugBest do
   defp parse_header_value_item(item) do
     [language, score] = case String.split(item, ";") do
        [language] -> [language, 1.0]
-       [language, "q=" <> score] -> [language, String.to_float(score)]
+       [language, "q=" <> score] -> [language, parse_language_score(score)]
     end
 
     # Extract base language by removing its suffix
@@ -95,5 +95,13 @@ defmodule PlugBest do
   @spec filter_header_value_item(language, [String.t, ...]) :: boolean
   defp filter_header_value_item({_, base_language, _}, supported_languages) do
     Enum.member?(supported_languages, base_language)
+  end
+
+  @spec parse_language_score(String.t) :: float
+  defp parse_language_score(score) do
+    case Float.parse(score) do
+      {score, _} -> score
+      :error -> 0.0
+    end
   end
 end
