@@ -13,7 +13,7 @@ Add `plug_best` to the `deps` function in your project's `mix.exs` file:
 defp deps do
   [
     …,
-    {:plug_best, "~> 0.1"}
+    {:plug_best, "~> 0.3"}
   ]
 end
 ```
