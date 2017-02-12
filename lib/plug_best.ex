@@ -21,11 +21,11 @@ defmodule PlugBest do
   ```
   """
 
-  # Types
-  @type language :: {String.t, String.t, float}
-
   # Aliases
   alias Plug.Conn
+
+  # Types
+  @type language :: {String.t, String.t, float}
 
   @doc """
   Returns the best supported langage based on the connection `Accept-Language`
