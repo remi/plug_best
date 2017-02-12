@@ -25,23 +25,75 @@ defmodule PlugBest do
   alias Plug.Conn
 
   # Types
-  @type language :: {String.t, String.t, float}
+  @type value :: {String.t, String.t, float}
 
   @doc """
   Returns the best supported langage based on the connection `Accept-Language`
   HTTP header. Returns `nil` if none is found.
   """
-  @spec best_language(%Conn{}, [String.t, ...]) :: language | nil
-  def best_language(conn = %Conn{}, supported_languages) do
+  @spec best_language(%Conn{}, [String.t]) :: value | nil
+  def best_language(conn = %Conn{}, supported_values), do: best_value(conn, "accept-language", supported_values)
+
+  @doc """
+  Returns the best supported langage based on the connection `Accept-Language`
+  HTTP header. Returns the first supported language if none is found.
+  """
+  @spec best_language_or_first(%Conn{}, [String.t]) :: value | nil
+  def best_language_or_first(conn = %Conn{}, supported_values), do: best_value_or_first(conn, "accept-language", supported_values)
+
+  @doc """
+  Returns the best supported charset based on the connection `Accept-Charset`
+  HTTP header. Returns `nil` if none is found.
+  """
+  @spec best_charset(%Conn{}, [String.t]) :: value | nil
+  def best_charset(conn = %Conn{}, supported_values), do: best_value(conn, "accept-charset", supported_values)
+
+  @doc """
+  Returns the best supported charset based on the connection `Accept-Charset`
+  HTTP header. Returns the first supported charset if none is found.
+  """
+  @spec best_charset_or_first(%Conn{}, [String.t]) :: value | nil
+  def best_charset_or_first(conn = %Conn{}, supported_values), do: best_value_or_first(conn, "accept-charset", supported_values)
+
+  @doc """
+  Returns the best supported encoding based on the connection `Accept-Encoding`
+  HTTP header. Returns `nil` if none is found.
+  """
+  @spec best_encoding(%Conn{}, [String.t]) :: value | nil
+  def best_encoding(conn = %Conn{}, supported_values), do: best_value(conn, "accept-encoding", supported_values)
+
+  @doc """
+  Returns the best supported encoding based on the connection `Accept-Encoding`
+  HTTP header. Returns the first supported encoding if none is found.
+  """
+  @spec best_encoding_or_first(%Conn{}, [String.t]) :: value | nil
+  def best_encoding_or_first(conn = %Conn{}, supported_values), do: best_value_or_first(conn, "accept-encoding", supported_values)
+
+  @doc """
+  Returns the best supported type based on the connection `Accept`
+  HTTP header. Returns `nil` if none is found.
+  """
+  @spec best_type(%Conn{}, [String.t]) :: value | nil
+  def best_type(conn = %Conn{}, supported_values), do: best_value(conn, "accept", supported_values)
+
+  @doc """
+  Returns the best supported type based on the connection `Accept`
+  HTTP header. Returns the first supported type if none is found.
+  """
+  @spec best_type_or_first(%Conn{}, [String.t]) :: value | nil
+  def best_type_or_first(conn = %Conn{}, supported_values), do: best_value_or_first(conn, "accept", supported_values)
+
+  @spec best_value(%Conn{}, String.t, [String.t]) :: value | nil
+  defp best_value(conn = %Conn{}, header, supported_values) do
     # Fetch the raw header content
-    conn |> fetch_header_value("accept-language")
+    conn |> fetch_header_value(header)
 
     # Convert it to a list
     |> String.split(",")
-    |> Enum.map(&parse_header_value_item/1)
+    |> Enum.map(&parse_header_item/1)
 
-    # Only keep languages that we support
-    |> Enum.filter(&(filter_header_value_item(&1, supported_languages)))
+    # Only keep values that we support
+    |> Enum.filter(&(filter_header_value_item(&1, supported_values)))
 
     # Sort the parsed header with each score
     |> Enum.sort(&sort_header_value_items/2)
@@ -50,19 +102,15 @@ defmodule PlugBest do
     |> List.first
   end
 
-  @doc """
-  Returns the best supported langage based on the connection `Accept-Language`
-  HTTP header. Returns the first supported language if none is found.
-  """
-  @spec best_language_or_first(%Conn{}, [String.t, ...]) :: language
-  def best_language_or_first(conn = %Conn{}, supported_languages) do
-    conn |> best_language(supported_languages) || default_supported_language(supported_languages)
+  @spec best_value_or_first(%Conn{}, String.t, [String.t]) :: value
+  defp best_value_or_first(conn = %Conn{}, header, supported_values) do
+    conn |> best_value(header, supported_values) || default_supported_value(supported_values)
   end
 
-  @spec default_supported_language([String.t, ...]) :: language
-  defp default_supported_language(supported_languages) do
-    [default_language | _] = supported_languages
-    {default_language, default_language, 0.0}
+  @spec default_supported_value([String.t]) :: value
+  defp default_supported_value(supported_values) do
+    [default_value | _] = supported_values
+    {default_value, default_value, 0.0}
   end
 
   @spec fetch_header_value(%Conn{}, String.t) :: String.t
@@ -74,31 +122,31 @@ defmodule PlugBest do
     header_value || ""
   end
 
-  @spec parse_header_value_item(String.t) :: language
-  defp parse_header_value_item(item) do
-    [language, score] = case String.split(item, ";") do
-       [language] -> [language, 1.0]
-       [language, "q=" <> score] -> [language, parse_language_score(score)]
+  @spec parse_header_item(String.t) :: value
+  defp parse_header_item(item) do
+    [value, score] = case String.split(item, ";") do
+       [value] -> [value, 1.0]
+       [value, "q=" <> score] -> [value, parse_score(score)]
     end
 
-    # Extract base language by removing its suffix
-    base_language = language |> String.replace(~r/-.+$/, "")
+    # Extract base value by removing its suffix
+    base_value = value |> String.replace(~r/-.+$/, "")
 
-    {language, base_language, score}
+    {value, base_value, score}
   end
 
-  @spec sort_header_value_items(language, language) :: boolean
+  @spec sort_header_value_items(value, value) :: boolean
   defp sort_header_value_items({_, _, first_score}, {_, _, second_score}) do
     first_score > second_score
   end
 
-  @spec filter_header_value_item(language, [String.t, ...]) :: boolean
-  defp filter_header_value_item({_, base_language, _}, supported_languages) do
-    Enum.member?(supported_languages, base_language)
+  @spec filter_header_value_item(value, [String.t]) :: boolean
+  defp filter_header_value_item({_, base_value, _}, supported_values) do
+    Enum.member?(supported_values, base_value)
   end
 
-  @spec parse_language_score(String.t) :: float
-  defp parse_language_score(score) do
+  @spec parse_score(String.t) :: float
+  defp parse_score(score) do
     case Float.parse(score) do
       {score, _} -> score
       :error -> 0.0

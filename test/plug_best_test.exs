@@ -17,6 +17,13 @@ defmodule PlugBestTest do
     assert best_language_from_es_en == {"en", "en", 0.6}
   end
 
+  test "returns the best type" do
+    conn = %Plug.Conn{req_headers: [{"accept", "application/json;q=0.4,application/xml;q=0.5,text/csv;q=0.9"}]}
+
+    best_type = conn |> PlugBest.best_type(["application/json", "text/csv"])
+    assert best_type == {"text/csv", "text/csv", 0.9}
+  end
+
   test "handles malformed header value" do
     conn = %Plug.Conn{req_headers: [{"accept-language", "fr-CA;q=1,fr;q=0.8,en;q=0.6,en-US;q=0.4"}]}
 

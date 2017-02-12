@@ -3,7 +3,7 @@
 [![Travis](https://img.shields.io/travis/remiprev/plug_best.svg?style=flat-square)](https://travis-ci.org/remiprev/plug_best)
 [![Hex.pm](https://img.shields.io/hexpm/v/plug_best.svg?style=flat-square)](https://hex.pm/packages/plug_best)
 
-`PlugBest` parses HTTP “Accept-*“ headers and returns the best match based on a list of values.
+`PlugBest` parses HTTP `Accept-*` headers and returns the best match based on a list of values.
 
 ## Installation
 
@@ -22,15 +22,16 @@ Then run `mix do deps.get, deps.compile` inside your project's directory.
 
 ## Usage
 
-`PlugBest` currently provides a single basic method:
+`PlugBest` currently provides eight methods:
 
 * `best_language/2`
-
-And plans to add support for the following soon:
-
+* `best_language_or_first/2`
 * `best_charset/2`
+* `best_charset_or_first/2`
 * `best_encoding/2`
-* `best_media_type/2`
+* `best_encoding_or_first/2`
+* `best_type/2`
+* `best_type_or_first/2`
 
 To find out which language is the best one to use among a list of supported languages:
 
