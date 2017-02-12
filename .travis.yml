@@ -10,6 +10,6 @@ otp_release:
   - 17.5
 
 script:
-  - mix credo
+  - mix credo --strict
   - mix dialyzer.plt && mix dialyzer
   - mix test
