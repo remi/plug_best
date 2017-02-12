@@ -10,11 +10,11 @@ defmodule PlugBestTest do
   test "returns the best language" do
     conn = %Plug.Conn{req_headers: [{"accept-language", "fr-CA,fr;q=0.8,en;q=0.6,en-US;q=0.4"}]}
 
-    best_language = conn |> PlugBest.best_language(["fr", "en"])
-    assert best_language == {"fr-CA", "fr", 1.0}
+    best_language_from_fr_en = conn |> PlugBest.best_language(["fr", "en"])
+    assert best_language_from_fr_en == {"fr-CA", "fr", 1.0}
 
-    best_language = conn |> PlugBest.best_language(["es", "en"])
-    assert best_language == {"en", "en", 0.6}
+    best_language_from_es_en = conn |> PlugBest.best_language(["es", "en"])
+    assert best_language_from_es_en == {"en", "en", 0.6}
   end
 
   test "handles malformed header value" do
