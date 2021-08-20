@@ -21,7 +21,9 @@ defmodule PlugBest.Mixfile do
   end
 
   def application do
-    [applications: []]
+    [
+      applications: [:plug]
+    ]
   end
 
   def dialyzer do
