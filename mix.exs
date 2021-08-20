@@ -34,7 +34,7 @@ defmodule PlugBest.Mixfile do
     [
       {:plug, " ~> 1.0"},
       {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.11", only: :dev},
+      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 0.6", only: :dev},
       {:dialyxir, "~> 0.5", only: :dev}
     ]
