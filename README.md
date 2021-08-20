@@ -1,7 +1,7 @@
 # PlugBest
 
-[![Travis](https://img.shields.io/travis/remiprev/plug_best.svg?style=flat-square)](https://travis-ci.org/remiprev/plug_best)
-[![Hex.pm](https://img.shields.io/hexpm/v/plug_best.svg?style=flat-square)](https://hex.pm/packages/plug_best)
+<a href="https://github.com/remi/plug_best/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush"><img src="https://github.com/remi/plug_best/workflows/CI/badge.svg?branch=master&event=push" /></a>
+<a href="https://hex.pm/packages/plug_best"><img src="https://img.shields.io/hexpm/v/plug_best.svg" /></a>
 
 `PlugBest` parses HTTP `Accept-*` headers and returns the best match based on a list of values.
 
@@ -24,14 +24,14 @@ Then run `mix do deps.get, deps.compile` inside your project's directory.
 
 `PlugBest` currently provides eight methods:
 
-* `best_language/2`
-* `best_language_or_first/2`
-* `best_charset/2`
-* `best_charset_or_first/2`
-* `best_encoding/2`
-* `best_encoding_or_first/2`
-* `best_type/2`
-* `best_type_or_first/2`
+- `best_language/2`
+- `best_language_or_first/2`
+- `best_charset/2`
+- `best_charset_or_first/2`
+- `best_encoding/2`
+- `best_encoding_or_first/2`
+- `best_type/2`
+- `best_type_or_first/2`
 
 To find out which language is the best one to use among a list of supported languages:
 
